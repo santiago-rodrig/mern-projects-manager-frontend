@@ -7,8 +7,7 @@ const Projects = () => {
             <Sidebar />
             <div className="contenedor-principal">
                 <main>
-                    <div className="contenedor-tareas">
-                    </div>
+                    <div className="contenedor-tareas"></div>
                 </main>
             </div>
         </div>
