@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Login = () => {
     const [user, setUser] = useState({
         email: '',
-        password: ''
+        password: '',
     })
 
     const { email, password } = user
@@ -12,11 +12,11 @@ const Login = () => {
     const handleChange = (e) => {
         setUser({
             ...user,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         })
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault()
     }
 
@@ -26,7 +26,7 @@ const Login = () => {
                 <h1>Iniciar Sesión</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="campo-form">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">Correo electrónico</label>
                         <input
                             type="email"
                             id="email"
@@ -37,7 +37,7 @@ const Login = () => {
                         />
                     </div>
                     <div className="campo-form">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Contraseña</label>
                         <input
                             type="password"
                             id="password"
@@ -54,7 +54,7 @@ const Login = () => {
                         />
                     </div>
                 </form>
-                <Link to={'./signup'} className="enlace-cuenta">
+                <Link to={'/signup'} className="enlace-cuenta">
                     Registrarse
                 </Link>
             </div>
