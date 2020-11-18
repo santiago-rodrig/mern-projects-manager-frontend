@@ -1,9 +1,12 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Project from './Project'
 import { ProjectsContext } from '../../context/projects/context'
 
 const Listing = () => {
-    const { projects, setProjects } = useContext(ProjectsContext)
+    const { projects, setProjects, activateProject } = useContext(
+        ProjectsContext
+    )
+    const [fetching, setFetching] = useState(true)
 
     useEffect(() => {
         const fetchProjects = new Promise((resolve) => {
@@ -22,10 +25,18 @@ const Listing = () => {
             const payload = await fetchProjects
 
             setProjects(payload)
+
+            if (projects.length > 0) {
+                activateProject(projects[0].id)
+            }
+
+            setFetching(false)
         }
 
-        queryApi()
-    }, [])
+        if (fetching) {
+            queryApi()
+        }
+    }, [projects, setFetching, fetching])
 
     return (
         <ul className="listado-proyectos">

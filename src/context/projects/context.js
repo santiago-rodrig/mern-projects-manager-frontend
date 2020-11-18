@@ -1,10 +1,11 @@
 import { createContext, useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import projectsReducer, {
-    ACTIVATE_NEW_PROJECT,
-    DEACTIVATE_NEW_PROJECT,
+    ACTIVATE_PROJECT_FORM,
+    DEACTIVATE_PROJECT_FORM,
     SET_PROJECTS,
     ADD_PROJECT,
+    ACTIVATE_PROJECT,
 } from './reducer'
 
 export const ProjectsContext = createContext()
@@ -13,16 +14,17 @@ const ProjectsProvider = ({ children }) => {
     const [state, dispatch] = useReducer(projectsReducer, {
         newProject: false,
         projects: [],
+        activeProject: null,
     })
 
-    const { newProject, projects } = state
+    const { newProject, projects, activeProject } = state
 
-    const activateNewProject = () => {
-        dispatch({ type: ACTIVATE_NEW_PROJECT })
+    const activateProjectForm = () => {
+        dispatch({ type: ACTIVATE_PROJECT_FORM })
     }
 
-    const deactivateNewProject = () => {
-        dispatch({ type: DEACTIVATE_NEW_PROJECT })
+    const deactivateProjectForm = () => {
+        dispatch({ type: DEACTIVATE_PROJECT_FORM })
     }
 
     const setProjects = (projects) => {
@@ -35,12 +37,18 @@ const ProjectsProvider = ({ children }) => {
         dispatch({ type: ADD_PROJECT, payload })
     }
 
+    const activateProject = (projectId) => {
+        dispatch({ type: ACTIVATE_PROJECT, payload: projectId })
+    }
+
     return (
         <ProjectsContext.Provider
             value={{
+                activateProject,
+                activeProject,
                 newProject,
-                activateNewProject,
-                deactivateNewProject,
+                activateProjectForm,
+                deactivateProjectForm,
                 setProjects,
                 projects,
                 addProject,

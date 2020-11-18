@@ -4,9 +4,9 @@ import { ProjectsContext } from '../../context/projects/context'
 const ProjectForm = () => {
     const {
         newProject,
-        activateNewProject,
+        activateProjectForm,
         addProject,
-        deactivateNewProject,
+        deactivateProjectForm,
     } = useContext(ProjectsContext)
 
     const [project, setProject] = useState({
@@ -36,11 +36,11 @@ const ProjectForm = () => {
         setInvalidProject(false)
         addProject(project)
         setProject({ ...project, name: '' })
-        deactivateNewProject()
+        deactivateProjectForm()
     }
 
     const handleClick = () => {
-        activateNewProject()
+        activateProjectForm()
     }
 
     const formJsx = (
