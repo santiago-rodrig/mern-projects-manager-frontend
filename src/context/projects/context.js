@@ -9,9 +9,14 @@ export const ProjectsContext = createContext()
 const ProjectsProvider = ({ children }) => {
     const [state, dispatch] = useReducer(projectsReducer, {
         newProject: false,
+        projects: [
+            { name: 'Tienda Virtual', id: '1' },
+            { name: 'Intranet', id: '2' },
+            { name: 'Diseño de Sitio Web', id: '3' },
+        ],
     })
 
-    const { newProject } = state
+    const { newProject, projects } = state
 
     const activateNewProject = () => {
         dispatch({ type: ACTIVATE_NEW_PROJECT })
@@ -23,7 +28,12 @@ const ProjectsProvider = ({ children }) => {
 
     return (
         <ProjectsContext.Provider
-            value={{ newProject, activateNewProject, deactivateNewProject }}
+            value={{
+                newProject,
+                activateNewProject,
+                deactivateNewProject,
+                projects,
+            }}
         >
             {children}
         </ProjectsContext.Provider>
