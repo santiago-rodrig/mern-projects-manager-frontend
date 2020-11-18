@@ -356,3 +356,7 @@ aside {
 .contenedor-principal {
     flex-grow: 1;
 }
+
+.btn-eliminar {
+    background-color: var(--blanco);
+}
