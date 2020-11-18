@@ -13,6 +13,8 @@ const ProjectForm = () => {
         name: '',
     })
 
+    const [invalidProject, setInvalidProject] = useState(false)
+
     const { name } = project
 
     const handleChange = (e) => {
@@ -26,9 +28,12 @@ const ProjectForm = () => {
         e.preventDefault()
 
         if (name.trim() === '') {
+            setInvalidProject(true)
+
             return
         }
 
+        setInvalidProject(false)
         addProject(project)
         setProject({ ...project, name: '' })
         deactivateNewProject()
@@ -56,6 +61,10 @@ const ProjectForm = () => {
         </form>
     )
 
+    const invalidProjectJsx = (
+        <p className="mensaje error">El nombre del proyecto es obligatorio</p>
+    )
+
     return (
         <Fragment>
             <button
@@ -66,6 +75,7 @@ const ProjectForm = () => {
                 Nuevo Proyecto
             </button>
             {newProject ? formJsx : null}
+            {invalidProject ? invalidProjectJsx : null}
         </Fragment>
     )
 }
