@@ -1,5 +1,8 @@
 import { createContext, useReducer } from 'react'
-import projectsReducer from './reducer'
+import projectsReducer, {
+    ACTIVATE_NEW_PROJECT,
+    DEACTIVATE_NEW_PROJECT,
+} from './reducer'
 
 export const ProjectsContext = createContext()
 
@@ -10,8 +13,18 @@ const ProjectsProvider = ({ children }) => {
 
     const { newProject } = state
 
+    const activateNewProject = () => {
+        dispatch({ type: ACTIVATE_NEW_PROJECT })
+    }
+
+    const deactivateNewProject = () => {
+        dispatch({ type: DEACTIVATE_NEW_PROJECT })
+    }
+
     return (
-        <ProjectsContext.Provider value={{ newProject }}>
+        <ProjectsContext.Provider
+            value={{ newProject, activateNewProject, deactivateNewProject }}
+        >
             {children}
         </ProjectsContext.Provider>
     )

@@ -2,7 +2,7 @@ import React, { Fragment, useState, useContext } from 'react'
 import { ProjectsContext } from '../../context/projects/context'
 
 const ProjectForm = () => {
-    const { newProject } = useContext(ProjectsContext)
+    const { newProject, activateNewProject } = useContext(ProjectsContext)
 
     const [project, setPoject] = useState({
         name: '',
@@ -19,6 +19,10 @@ const ProjectForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+    }
+
+    const handleClick = () => {
+        activateNewProject()
     }
 
     const formJsx = (
@@ -41,10 +45,14 @@ const ProjectForm = () => {
 
     return (
         <Fragment>
-            <button type="button" className="btn btn-block btn-primario">
+            <button
+                type="button"
+                className="btn btn-block btn-primario"
+                onClick={handleClick}
+            >
                 Nuevo Proyecto
             </button>
-            { newProject ? formJsx : null }
+            {newProject ? formJsx : null}
         </Fragment>
     )
 }
