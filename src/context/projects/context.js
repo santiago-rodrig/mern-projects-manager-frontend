@@ -1,8 +1,10 @@
 import { createContext, useReducer } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import projectsReducer, {
     ACTIVATE_NEW_PROJECT,
     DEACTIVATE_NEW_PROJECT,
     SET_PROJECTS,
+    ADD_PROJECT,
 } from './reducer'
 
 export const ProjectsContext = createContext()
@@ -27,6 +29,12 @@ const ProjectsProvider = ({ children }) => {
         dispatch({ type: SET_PROJECTS, payload: projects })
     }
 
+    const addProject = (project) => {
+        const payload = { ...project, id: uuidv4() }
+
+        dispatch({ type: ADD_PROJECT, payload })
+    }
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -35,6 +43,7 @@ const ProjectsProvider = ({ children }) => {
                 deactivateNewProject,
                 setProjects,
                 projects,
+                addProject,
             }}
         >
             {children}

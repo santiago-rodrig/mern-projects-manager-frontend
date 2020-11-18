@@ -2,16 +2,21 @@ import React, { Fragment, useState, useContext } from 'react'
 import { ProjectsContext } from '../../context/projects/context'
 
 const ProjectForm = () => {
-    const { newProject, activateNewProject } = useContext(ProjectsContext)
+    const {
+        newProject,
+        activateNewProject,
+        addProject,
+        deactivateNewProject,
+    } = useContext(ProjectsContext)
 
-    const [project, setPoject] = useState({
+    const [project, setProject] = useState({
         name: '',
     })
 
     const { name } = project
 
     const handleChange = (e) => {
-        setPoject({
+        setProject({
             ...project,
             [e.target.name]: e.target.value,
         })
@@ -19,6 +24,14 @@ const ProjectForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        if (name.trim() === '') {
+            return
+        }
+
+        addProject(project)
+        setProject({ ...project, name: '' })
+        deactivateNewProject()
     }
 
     const handleClick = () => {
