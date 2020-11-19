@@ -10,7 +10,11 @@ const Project = ({ project }) => {
 
     return (
         <li>
-            <button type="button" className="btn btn-blank">
+            <button
+                type="button"
+                className="btn btn-blank"
+                onClick={handleClick}
+            >
                 {project.name}
             </button>
         </li>

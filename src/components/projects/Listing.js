@@ -3,9 +3,8 @@ import Project from './Project'
 import { ProjectsContext } from '../../context/projects/context'
 
 const Listing = () => {
-    const { projects, setProjects, activateProject } = useContext(
-        ProjectsContext
-    )
+    const { projects, setProjects } = useContext(ProjectsContext)
+
     const [fetching, setFetching] = useState(true)
 
     useEffect(() => {
@@ -25,18 +24,13 @@ const Listing = () => {
             const payload = await fetchProjects
 
             setProjects(payload)
-
-            if (projects.length > 0) {
-                activateProject(projects[0].id)
-            }
-
             setFetching(false)
         }
 
         if (fetching) {
             queryApi()
         }
-    }, [projects, setFetching, fetching])
+    }, [projects, setFetching, fetching, setProjects])
 
     return (
         <ul className="listado-proyectos">
