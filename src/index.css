@@ -360,3 +360,7 @@ aside {
 .btn-eliminar {
     background-color: var(--blanco);
 }
+
+.mt-4 {
+    margin-top: 2rem;
+}
