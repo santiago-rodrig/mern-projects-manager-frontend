@@ -32,13 +32,23 @@ const Listing = () => {
         }
     }, [projects, setFetching, fetching, setProjects])
 
-    return (
-        <ul className="listado-proyectos">
-            {projects.map((project) => (
-                <Project project={project} key={project.id} />
-            ))}
-        </ul>
-    )
+    let renderedJsx
+
+    if (projects.length === 0 && !fetching) {
+        renderedJsx = <p>No tienes proyectos, intenta crear uno.</p>
+    } else if (projects.length === 0 && fetching) {
+        renderedJsx = <p>Cargando proyectos...</p>
+    } else {
+        renderedJsx = (
+            <ul className="listado-proyectos">
+                {projects.map((project) => (
+                    <Project project={project} key={project.id} />
+                ))}
+            </ul>
+        )
+    }
+
+    return renderedJsx
 }
 
 export default Listing
