@@ -4,17 +4,20 @@ import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Projects from './components/projects/Projects'
 import ProjectsProvider from './context/projects/context'
+import TasksProvider from './context/tasks/context'
 
 function App() {
     return (
         <ProjectsProvider>
-            <Router>
-                <Switch>
-                    <Route exact path="/" component={Login} />
-                    <Route exact path="/signup" component={Signup} />
-                    <Route exact path="/projects" component={Projects} />
-                </Switch>
-            </Router>
+            <TasksProvider>
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <Route exact path="/signup" component={Signup} />
+                        <Route exact path="/projects" component={Projects} />
+                    </Switch>
+                </Router>
+            </TasksProvider>
         </ProjectsProvider>
     )
 }
