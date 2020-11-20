@@ -6,6 +6,7 @@ import projectsReducer, {
     SET_PROJECTS,
     ADD_PROJECT,
     ACTIVATE_PROJECT,
+    REMOVE_PROJECT,
 } from './reducer'
 
 export const ProjectsContext = createContext()
@@ -41,9 +42,14 @@ const ProjectsProvider = ({ children }) => {
         dispatch({ type: ACTIVATE_PROJECT, payload: projectId })
     }
 
+    const removeProject = (projectId) => {
+        dispatch({ type: REMOVE_PROJECT, payload: projectId })
+    }
+
     return (
         <ProjectsContext.Provider
             value={{
+                removeProject,
                 activateProject,
                 activeProject,
                 newProject,

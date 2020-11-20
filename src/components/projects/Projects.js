@@ -6,13 +6,22 @@ import TasksListing from '../tasks/TasksListing'
 import { ProjectsContext } from '../../context/projects/context'
 
 const Projects = () => {
-    const { activeProject } = useContext(ProjectsContext)
+    const { activeProject, removeProject } = useContext(ProjectsContext)
+
+    const handleClick = () => removeProject(activeProject.id)
 
     const MainJsx = (
         <main>
             <TasksForm />
             <div className="contenedor-tareas">
                 <TasksListing />
+                <button
+                    type="button"
+                    className="btn btn-eliminar"
+                    onClick={handleClick}
+                >
+                    Eliminar Proyecto &times;
+                </button>
             </div>
         </main>
     )

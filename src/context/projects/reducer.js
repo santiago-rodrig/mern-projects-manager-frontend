@@ -3,6 +3,7 @@ export const DEACTIVATE_PROJECT_FORM = 'DEACTIVATE_PROJECT_FORM'
 export const SET_PROJECTS = 'SET_PROJECTS'
 export const ADD_PROJECT = 'ADD_PROJECT'
 export const ACTIVATE_PROJECT = 'ACTIVATE_PROJECT'
+export const REMOVE_PROJECT = 'REMOVE_PROJECT'
 
 const projectsReducer = (state, action) => {
     const { type, payload } = action
@@ -33,6 +34,12 @@ const projectsReducer = (state, action) => {
             return {
                 ...state,
                 activeProject: projects.find((p) => p.id === payload),
+            }
+        case REMOVE_PROJECT:
+            return {
+                ...state,
+                projects: projects.filter((p) => p.id !== payload),
+                activeProject: null,
             }
         default:
             return state

@@ -24,9 +24,6 @@ const TasksListing = () => {
                     tasks.map((task) => <Task task={task} key={task.id} />)
                 )}
             </ul>
-            <button type="button" className="btn btn-eliminar">
-                Eliminar Proyecto &times;
-            </button>
         </Fragment>
     )
 }
