@@ -1,22 +1,17 @@
 import React, { Fragment, useContext } from 'react'
 import Task from './Task'
 import { ProjectsContext } from '../../context/projects/context'
+import { TasksContext } from '../../context/tasks/context'
 
 const TasksListing = () => {
-    const tasks = [
-        { name: 'Buy Boots', state: false, id: '1' },
-        { name: 'Buy Pickaxe', state: false, id: '2' },
-        { name: 'Buy Gloves', state: false, id: '3' },
-        { name: 'Buy Coat', state: false, id: '4' },
-    ]
-
     const { activeProject } = useContext(ProjectsContext)
+    const { activeTasks: tasks } = useContext(TasksContext)
 
     return (
         <Fragment>
             <h2>Proyecto: {activeProject.name}</h2>
             <ul className="listado-tareas">
-                {tasks.length === 0 ? (
+                {tasks === null || tasks.length === 0 ? (
                     <li className="tarea">
                         <p>No hay tareas</p>
                     </li>

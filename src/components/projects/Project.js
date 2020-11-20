@@ -1,11 +1,14 @@
 import React, { useContext } from 'react'
 import { ProjectsContext } from '../../context/projects/context'
+import { TasksContext } from '../../context/tasks/context'
 
 const Project = ({ project }) => {
     const { activateProject } = useContext(ProjectsContext)
+    const { activateTasks } = useContext(TasksContext)
 
     const handleClick = () => {
         activateProject(project.id)
+        activateTasks(project.id)
     }
 
     return (

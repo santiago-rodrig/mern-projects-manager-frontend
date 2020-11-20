@@ -4,11 +4,16 @@ import MainBar from '../layout/MainBar'
 import TasksForm from '../tasks/TasksForm'
 import TasksListing from '../tasks/TasksListing'
 import { ProjectsContext } from '../../context/projects/context'
+import { TasksContext } from '../../context/tasks/context'
 
 const Projects = () => {
     const { activeProject, removeProject } = useContext(ProjectsContext)
+    const { removeTasks } = useContext(TasksContext)
 
-    const handleClick = () => removeProject(activeProject.id)
+    const handleClick = () => {
+        removeTasks(activeProject.id)
+        removeProject(activeProject.id)
+    }
 
     const MainJsx = (
         <main>
