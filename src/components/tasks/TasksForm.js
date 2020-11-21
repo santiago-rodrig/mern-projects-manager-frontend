@@ -41,7 +41,7 @@ const TasksForm = () => {
     return (
         <div className="formulario">
             {invalidTask ? (
-                <p className="mensaje error">
+                <p className="mensaje error mb-4">
                     El nombre de la tarea es inválido
                 </p>
             ) : null}
