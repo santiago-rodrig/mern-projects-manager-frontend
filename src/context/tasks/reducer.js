@@ -1,6 +1,7 @@
 const ACTIVATE_TASKS = 'ACTIVATE_TASKS'
-const REMOVE_TASKS = 'REMOVE_TASKS'
+const DEACTIVATE_TASKS = 'DEACTIVATE_TASKS'
 const ADD_TASK = 'ADD_TASK'
+const REMOVE_TASK = 'REMOVE_TASK'
 
 const tasksReducer = (state, action) => {
     const { type, payload } = action
@@ -12,7 +13,7 @@ const tasksReducer = (state, action) => {
                 ...state,
                 activeTasks: tasks.filter((task) => task.projectId === payload),
             }
-        case REMOVE_TASKS:
+        case DEACTIVATE_TASKS:
             return {
                 ...state,
                 activeTasks: null,
@@ -24,10 +25,16 @@ const tasksReducer = (state, action) => {
                 tasks: [...tasks, payload],
                 activeTasks: [...activeTasks, payload],
             }
+        case REMOVE_TASK:
+            return {
+                ...state,
+                tasks: tasks.filter((task) => task.id !== payload),
+                activeTasks: activeTasks.filter((task) => task.id !== payload),
+            }
         default:
             return state
     }
 }
 
-export { ACTIVATE_TASKS, REMOVE_TASKS, ADD_TASK }
+export { ACTIVATE_TASKS, DEACTIVATE_TASKS, ADD_TASK, REMOVE_TASK }
 export default tasksReducer

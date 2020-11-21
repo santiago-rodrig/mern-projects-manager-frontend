@@ -1,5 +1,10 @@
 import React, { createContext, useReducer } from 'react'
-import tasksReducer, { ACTIVATE_TASKS, REMOVE_TASKS, ADD_TASK } from './reducer'
+import tasksReducer, {
+    ACTIVATE_TASKS,
+    DEACTIVATE_TASKS,
+    ADD_TASK,
+    REMOVE_TASK,
+} from './reducer'
 import { v4 as uuidv4 } from 'uuid'
 
 const TasksContext = createContext()
@@ -21,8 +26,8 @@ const TasksProvider = ({ children }) => {
         dispatch({ type: ACTIVATE_TASKS, payload: projectId })
     }
 
-    const removeTasks = (projectId) => {
-        dispatch({ type: REMOVE_TASKS, payload: projectId })
+    const deactivateTasks = (projectId) => {
+        dispatch({ type: DEACTIVATE_TASKS, payload: projectId })
     }
 
     const addTask = (task) => {
@@ -31,9 +36,20 @@ const TasksProvider = ({ children }) => {
         dispatch({ type: ADD_TASK, payload })
     }
 
+    const removeTask = (taskId) => {
+        dispatch({ type: REMOVE_TASK, payload: taskId })
+    }
+
     return (
         <TasksContext.Provider
-            value={{ tasks, activeTasks, activateTasks, removeTasks, addTask }}
+            value={{
+                tasks,
+                activeTasks,
+                activateTasks,
+                deactivateTasks,
+                addTask,
+                removeTask,
+            }}
         >
             {children}
         </TasksContext.Provider>

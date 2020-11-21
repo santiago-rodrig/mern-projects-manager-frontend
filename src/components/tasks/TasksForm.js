@@ -53,6 +53,7 @@ const TasksForm = () => {
                         placeholder="Buy Boots"
                         name="name"
                         onChange={handleChange}
+                        value={task.name}
                     />
                 </div>
                 <div className="contenedor-input">

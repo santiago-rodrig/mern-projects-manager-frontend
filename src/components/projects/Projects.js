@@ -8,10 +8,10 @@ import { TasksContext } from '../../context/tasks/context'
 
 const Projects = () => {
     const { activeProject, removeProject } = useContext(ProjectsContext)
-    const { removeTasks } = useContext(TasksContext)
+    const { deactivateTasks } = useContext(TasksContext)
 
     const handleClick = () => {
-        removeTasks(activeProject.id)
+        deactivateTasks(activeProject.id)
         removeProject(activeProject.id)
     }
 
