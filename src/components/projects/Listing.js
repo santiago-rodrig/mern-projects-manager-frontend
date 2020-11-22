@@ -44,7 +44,11 @@ const Listing = () => {
             <ul className="listado-proyectos">
                 <TransitionGroup>
                     {projects.map((project) => (
-                        <CSSTransition timeout={200} classNames="proyecto" key={project.id}>
+                        <CSSTransition
+                            timeout={200}
+                            classNames="proyecto"
+                            key={project.id}
+                        >
                             <Project project={project} />
                         </CSSTransition>
                     ))}

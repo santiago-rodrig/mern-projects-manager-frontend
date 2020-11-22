@@ -4,6 +4,7 @@ import tasksReducer, {
     DEACTIVATE_TASKS,
     ADD_TASK,
     REMOVE_TASK,
+    TOGGLE_TASK_STATE,
 } from './reducer'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -40,9 +41,14 @@ const TasksProvider = ({ children }) => {
         dispatch({ type: REMOVE_TASK, payload: taskId })
     }
 
+    const toggleTaskState = (taskId) => {
+        dispatch({ type: TOGGLE_TASK_STATE, payload: taskId })
+    }
+
     return (
         <TasksContext.Provider
             value={{
+                toggleTaskState,
                 tasks,
                 activeTasks,
                 activateTasks,

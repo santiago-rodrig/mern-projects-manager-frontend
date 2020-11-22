@@ -2,6 +2,7 @@ const ACTIVATE_TASKS = 'ACTIVATE_TASKS'
 const DEACTIVATE_TASKS = 'DEACTIVATE_TASKS'
 const ADD_TASK = 'ADD_TASK'
 const REMOVE_TASK = 'REMOVE_TASK'
+const TOGGLE_TASK_STATE = 'TOGGLE_TASKS_STATE'
 
 const tasksReducer = (state, action) => {
     const { type, payload } = action
@@ -31,10 +32,30 @@ const tasksReducer = (state, action) => {
                 tasks: tasks.filter((task) => task.id !== payload),
                 activeTasks: activeTasks.filter((task) => task.id !== payload),
             }
+        case TOGGLE_TASK_STATE:
+            const mapper = (task) => {
+                if (task.id === payload) {
+                    return { ...task, state: !task.state }
+                }
+
+                return task
+            }
+
+            return {
+                ...state,
+                tasks: tasks.map(mapper),
+                activeTasks: activeTasks.map(mapper),
+            }
         default:
             return state
     }
 }
 
-export { ACTIVATE_TASKS, DEACTIVATE_TASKS, ADD_TASK, REMOVE_TASK }
+export {
+    ACTIVATE_TASKS,
+    DEACTIVATE_TASKS,
+    ADD_TASK,
+    REMOVE_TASK,
+    TOGGLE_TASK_STATE,
+}
 export default tasksReducer

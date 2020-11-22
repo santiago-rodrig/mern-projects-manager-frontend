@@ -2,10 +2,14 @@ import React, { useContext } from 'react'
 import { TasksContext } from '../../context/tasks/context'
 
 const Task = ({ task }) => {
-    const { removeTask } = useContext(TasksContext)
+    const { removeTask, toggleTaskState } = useContext(TasksContext)
 
     const handleRemove = () => {
         removeTask(task.id)
+    }
+
+    const handleToggle = () => {
+        toggleTaskState(task.id)
     }
 
     return (
@@ -13,11 +17,19 @@ const Task = ({ task }) => {
             <p>{task.name}</p>
             <div className="estado">
                 {task.state ? (
-                    <button type="button" className="completo">
+                    <button
+                        type="button"
+                        className="completo"
+                        onClick={handleToggle}
+                    >
                         Completo
                     </button>
                 ) : (
-                    <button type="button" className="incompleto">
+                    <button
+                        type="button"
+                        className="incompleto"
+                        onClick={handleToggle}
+                    >
                         Incompleto
                     </button>
                 )}
