@@ -23,7 +23,7 @@ const TasksProvider = ({ children }) => {
         taskBeingEdited: null,
     })
 
-    const { tasks, activeTasks } = state
+    const { tasks, activeTasks, taskBeingEdited } = state
 
     const activateTasks = (projectId) => {
         dispatch({ type: ACTIVATE_TASKS, payload: projectId })
@@ -62,6 +62,7 @@ const TasksProvider = ({ children }) => {
                 deactivateTasks,
                 addTask,
                 removeTask,
+                taskBeingEdited,
             }}
         >
             {children}

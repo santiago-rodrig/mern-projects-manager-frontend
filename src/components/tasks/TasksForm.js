@@ -1,16 +1,26 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { TasksContext } from '../../context/tasks/context'
 import { ProjectsContext } from '../../context/projects/context'
 
 const TasksForm = () => {
     const { activeProject } = useContext(ProjectsContext)
-    const { addTask } = useContext(TasksContext)
+    const { addTask, taskBeingEdited } = useContext(TasksContext)
 
-    const [task, setTask] = useState({
+    const taskInitialState = {
         name: '',
         projectId: activeProject.id,
         state: false,
-    })
+    }
+
+    const [task, setTask] = useState(taskInitialState)
+
+    useEffect(() => {
+        if (taskBeingEdited) {
+            setTask(taskBeingEdited)
+        } else {
+            setTask(taskInitialState)
+        }
+    }, [taskBeingEdited])
 
     const [invalidTask, setInvalidTask] = useState(false)
 
@@ -60,7 +70,9 @@ const TasksForm = () => {
                     <input
                         type="submit"
                         className="btn btn-primario btn-submit btn-block"
-                        value="Agregar Tarea"
+                        value={`${
+                            taskBeingEdited ? 'Editar' : 'Agregar'
+                        } Tarea`}
                     />
                 </div>
             </form>
