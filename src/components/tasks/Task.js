@@ -2,7 +2,9 @@ import React, { useContext } from 'react'
 import { TasksContext } from '../../context/tasks/context'
 
 const Task = ({ task }) => {
-    const { removeTask, toggleTaskState } = useContext(TasksContext)
+    const { removeTask, toggleTaskState, setTaskBeingEdited } = useContext(
+        TasksContext
+    )
 
     const handleRemove = () => {
         removeTask(task.id)
@@ -10,6 +12,10 @@ const Task = ({ task }) => {
 
     const handleToggle = () => {
         toggleTaskState(task.id)
+    }
+
+    const handleEdit = () => {
+        setTaskBeingEdited(task)
     }
 
     return (
@@ -35,7 +41,11 @@ const Task = ({ task }) => {
                 )}
             </div>
             <div className="acciones">
-                <button type="button" className="btn btn-primario">
+                <button
+                    type="button"
+                    className="btn btn-primario"
+                    onClick={handleEdit}
+                >
                     Editar
                 </button>
                 <button

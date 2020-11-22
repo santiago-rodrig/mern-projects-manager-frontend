@@ -5,6 +5,7 @@ import tasksReducer, {
     ADD_TASK,
     REMOVE_TASK,
     TOGGLE_TASK_STATE,
+    SET_TASK_BEING_EDITED,
 } from './reducer'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -19,6 +20,7 @@ const TasksProvider = ({ children }) => {
             { name: 'Buy Coat', state: false, id: '4', projectId: '3' },
         ],
         activeTasks: null,
+        taskBeingEdited: null,
     })
 
     const { tasks, activeTasks } = state
@@ -45,9 +47,14 @@ const TasksProvider = ({ children }) => {
         dispatch({ type: TOGGLE_TASK_STATE, payload: taskId })
     }
 
+    const setTaskBeingEdited = (task) => {
+        dispatch({ type: SET_TASK_BEING_EDITED, payload: task })
+    }
+
     return (
         <TasksContext.Provider
             value={{
+                setTaskBeingEdited,
                 toggleTaskState,
                 tasks,
                 activeTasks,
