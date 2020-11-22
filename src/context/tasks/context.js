@@ -1,5 +1,8 @@
 import React, { createContext, useReducer } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+
 import tasksReducer, {
+    UPDATE_TASK,
     ACTIVATE_TASKS,
     DEACTIVATE_TASKS,
     ADD_TASK,
@@ -7,7 +10,6 @@ import tasksReducer, {
     TOGGLE_TASK_STATE,
     SET_TASK_BEING_EDITED,
 } from './reducer'
-import { v4 as uuidv4 } from 'uuid'
 
 const TasksContext = createContext()
 
@@ -51,6 +53,10 @@ const TasksProvider = ({ children }) => {
         dispatch({ type: SET_TASK_BEING_EDITED, payload: task })
     }
 
+    const updateTask = (task) => {
+        dispatch({ type: UPDATE_TASK, payload: task })
+    }
+
     return (
         <TasksContext.Provider
             value={{
@@ -63,6 +69,7 @@ const TasksProvider = ({ children }) => {
                 addTask,
                 removeTask,
                 taskBeingEdited,
+                updateTask,
             }}
         >
             {children}

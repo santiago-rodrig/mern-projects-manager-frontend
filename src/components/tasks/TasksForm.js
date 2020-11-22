@@ -4,7 +4,12 @@ import { ProjectsContext } from '../../context/projects/context'
 
 const TasksForm = () => {
     const { activeProject } = useContext(ProjectsContext)
-    const { addTask, taskBeingEdited } = useContext(TasksContext)
+    const {
+        addTask,
+        taskBeingEdited,
+        setTaskBeingEdited,
+        updateTask,
+    } = useContext(TasksContext)
 
     const taskInitialState = {
         name: '',
@@ -34,11 +39,14 @@ const TasksForm = () => {
         }
 
         setInvalidTask(false)
-        addTask(task)
-        setTask({
-            ...task,
-            name: '',
-        })
+
+        if (taskBeingEdited) {
+            updateTask(task)
+        } else {
+            addTask(task)
+        }
+
+        setTask(taskInitialState)
     }
 
     const handleChange = (e) => {

@@ -1,3 +1,4 @@
+const UPDATE_TASK = ' UPDATE_TASK'
 const ACTIVATE_TASKS = 'ACTIVATE_TASKS'
 const DEACTIVATE_TASKS = 'DEACTIVATE_TASKS'
 const ADD_TASK = 'ADD_TASK'
@@ -8,6 +9,7 @@ const SET_TASK_BEING_EDITED = 'SET_TASK_BEING_EDITED'
 const tasksReducer = (state, action) => {
     const { type, payload } = action
     const { tasks, activeTasks } = state
+    let mapper
 
     switch (type) {
         case ACTIVATE_TASKS:
@@ -34,7 +36,7 @@ const tasksReducer = (state, action) => {
                 activeTasks: activeTasks.filter((task) => task.id !== payload),
             }
         case TOGGLE_TASK_STATE:
-            const mapper = (task) => {
+            mapper = (task) => {
                 if (task.id === payload) {
                     return { ...task, state: !task.state }
                 }
@@ -52,6 +54,21 @@ const tasksReducer = (state, action) => {
                 ...state,
                 taskBeingEdited: payload,
             }
+        case UPDATE_TASK:
+            mapper = (task) => {
+                if (task.id === payload.id) {
+                    return payload
+                }
+
+                return task
+            }
+
+            return {
+                ...state,
+                tasks: tasks.map(mapper),
+                activeTasks: activeTasks.map(mapper),
+                taskBeingEdited: null,
+            }
         default:
             return state
     }
@@ -64,5 +81,7 @@ export {
     REMOVE_TASK,
     TOGGLE_TASK_STATE,
     SET_TASK_BEING_EDITED,
+    UPDATE_TASK,
 }
+
 export default tasksReducer
