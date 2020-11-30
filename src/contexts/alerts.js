@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react'
+import React, { createContext, useReducer } from 'react'
 import alertsReducer, { SHOW_ALERT, HIDE_ALERT } from '../reducers/alerts'
 const alertsContext = createContext()
 const AlertsContextProvider = ({ children }) => {
