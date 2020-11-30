@@ -60,8 +60,13 @@ const ProjectsProvider = ({ children }) => {
         dispatch({ type: ACTIVATE_PROJECT, payload: projectId })
     }
 
-    const removeProject = (projectId) => {
-        dispatch({ type: REMOVE_PROJECT, payload: projectId })
+    const removeProject = async (projectId) => {
+        try {
+            await axiosClient.delete(`/api/projects/${projectId}`)
+            dispatch({ type: REMOVE_PROJECT, payload: projectId })
+        } catch (error) {
+            console.log(error.response.data)
+        }
     }
 
     return (

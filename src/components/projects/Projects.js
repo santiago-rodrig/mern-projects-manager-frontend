@@ -22,8 +22,8 @@ const Projects = () => {
     }, [getProjects, authenticated])
 
     const handleClick = () => {
-        deactivateTasks(activeProject.id)
-        removeProject(activeProject.id)
+        deactivateTasks(activeProject._id)
+        removeProject(activeProject._id)
     }
 
     const MainJsx = (
