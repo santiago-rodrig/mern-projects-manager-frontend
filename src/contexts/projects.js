@@ -8,6 +8,8 @@ import projectsReducer, {
     ACTIVATE_PROJECT,
     REMOVE_PROJECT,
     POPULATE_PROJECTS,
+    SET_MESSAGE,
+    CLEAR_MESSAGE,
 } from '../reducers/projects'
 
 export const ProjectsContext = createContext()
@@ -17,9 +19,13 @@ const ProjectsProvider = ({ children }) => {
         newProject: false,
         projects: [],
         activeProject: null,
+        msg: {
+            content: '',
+            category: '',
+        },
     })
 
-    const { newProject, projects, activeProject } = state
+    const { newProject, projects, activeProject, msg } = state
 
     const getProjects = async () => {
         try {
@@ -30,7 +36,7 @@ const ProjectsProvider = ({ children }) => {
 
             dispatch({ type: POPULATE_PROJECTS, payload })
         } catch (error) {
-            console.log(error.response.data)
+            dispatch({ type: SET_MESSAGE, payload: error.response.data.msg })
         }
     }
 
@@ -52,7 +58,7 @@ const ProjectsProvider = ({ children }) => {
 
             dispatch({ type: ADD_PROJECT, payload })
         } catch (error) {
-            console.log(error.response.data)
+            dispatch({ type: SET_MESSAGE, payload: error.response.data.msg })
         }
     }
 
@@ -65,9 +71,11 @@ const ProjectsProvider = ({ children }) => {
             await axiosClient.delete(`/api/projects/${projectId}`)
             dispatch({ type: REMOVE_PROJECT, payload: projectId })
         } catch (error) {
-            console.log(error.response.data)
+            dispatch({ type: SET_MESSAGE, payload: error.response.data.msg })
         }
     }
+
+    const clearMessage = () => dispatch({ type: CLEAR_MESSAGE })
 
     return (
         <ProjectsContext.Provider
@@ -81,6 +89,8 @@ const ProjectsProvider = ({ children }) => {
                 projects,
                 addProject,
                 getProjects,
+                clearMessage,
+                msg,
             }}
         >
             {children}

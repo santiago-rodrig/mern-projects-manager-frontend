@@ -6,14 +6,27 @@ import TasksListing from '../tasks/TasksListing'
 import { ProjectsContext } from '../../contexts/projects'
 import { TasksContext } from '../../contexts/tasks'
 import { authContext } from '../../contexts/auth'
+import { alertsContext } from '../../contexts/alerts'
 
 const Projects = () => {
-    const { activeProject, removeProject, getProjects } = useContext(
-        ProjectsContext
-    )
+    const {
+        activeProject,
+        removeProject,
+        getProjects,
+        msg,
+        clearMessage,
+    } = useContext(ProjectsContext)
 
     const { deactivateTasks } = useContext(TasksContext)
     const { authenticated } = useContext(authContext)
+    const { alert, showAlert } = useContext(alertsContext)
+
+    useEffect(() => {
+        if (msg.content) {
+            showAlert(msg.content, msg.category)
+            clearMessage()
+        }
+    }, [msg, clearMessage])
 
     useEffect(() => {
         if (authenticated) {
@@ -44,6 +57,9 @@ const Projects = () => {
 
     return (
         <div className="contenedor-app">
+            {alert ? (
+                <div className={`alerta ${alert.category}`}>{alert.msg}</div>
+            ) : null}
             <Sidebar />
             <div className="contenedor-principal">
                 <MainBar />
