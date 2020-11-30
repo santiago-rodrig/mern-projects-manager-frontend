@@ -7,6 +7,7 @@ import { ProjectsContext } from '../../contexts/projects'
 import { TasksContext } from '../../contexts/tasks'
 import { authContext } from '../../contexts/auth'
 import { alertsContext } from '../../contexts/alerts'
+import { Redirect } from 'react-router-dom'
 
 const Projects = () => {
     const {

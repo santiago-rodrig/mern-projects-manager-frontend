@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import axiosClient from '../config/axios'
 
 import tasksReducer, {
     UPDATE_TASK,
@@ -15,12 +15,7 @@ const TasksContext = createContext()
 
 const TasksProvider = ({ children }) => {
     const [state, dispatch] = useReducer(tasksReducer, {
-        tasks: [
-            { name: 'Buy Boots', state: false, id: '1', projectId: '1' },
-            { name: 'Buy Pickaxe', state: false, id: '2', projectId: '1' },
-            { name: 'Buy Gloves', state: false, id: '3', projectId: '2' },
-            { name: 'Buy Coat', state: false, id: '4', projectId: '3' },
-        ],
+        tasks: [],
         activeTasks: null,
         taskBeingEdited: null,
     })
@@ -35,10 +30,18 @@ const TasksProvider = ({ children }) => {
         dispatch({ type: DEACTIVATE_TASKS, payload: projectId })
     }
 
-    const addTask = (task) => {
-        const payload = { ...task, id: uuidv4() }
+    const addTask = async (task) => {
+        try {
+            const response = await axiosClient.post('/api/tasks', task)
 
-        dispatch({ type: ADD_TASK, payload })
+            const {
+                data: { task: payload },
+            } = response
+
+            dispatch({ type: ADD_TASK, payload })
+        } catch (error) {
+            console.log(error.resonse.data)
+        }
     }
 
     const removeTask = (taskId) => {

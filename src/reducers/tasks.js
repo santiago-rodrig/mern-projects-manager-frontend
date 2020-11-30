@@ -15,13 +15,13 @@ const tasksReducer = (state, action) => {
         case ACTIVATE_TASKS:
             return {
                 ...state,
-                activeTasks: tasks.filter((task) => task.projectId === payload),
+                activeTasks: tasks.filter((task) => task.project === payload),
             }
         case DEACTIVATE_TASKS:
             return {
                 ...state,
                 activeTasks: null,
-                tasks: tasks.filter((task) => task.projectId !== payload),
+                tasks: tasks.filter((task) => task.project !== payload),
             }
         case ADD_TASK:
             return {
@@ -32,12 +32,12 @@ const tasksReducer = (state, action) => {
         case REMOVE_TASK:
             return {
                 ...state,
-                tasks: tasks.filter((task) => task.id !== payload),
-                activeTasks: activeTasks.filter((task) => task.id !== payload),
+                tasks: tasks.filter((task) => task._id !== payload),
+                activeTasks: activeTasks.filter((task) => task._id !== payload),
             }
         case TOGGLE_TASK_STATE:
             mapper = (task) => {
-                if (task.id === payload) {
+                if (task._id === payload) {
                     return { ...task, state: !task.state }
                 }
 
@@ -56,7 +56,7 @@ const tasksReducer = (state, action) => {
             }
         case UPDATE_TASK:
             mapper = (task) => {
-                if (task.id === payload.id) {
+                if (task._id === payload._id) {
                     return payload
                 }
 

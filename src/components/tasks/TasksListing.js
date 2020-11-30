@@ -12,7 +12,7 @@ const TasksListing = () => {
         <Fragment>
             <h2>Proyecto: {activeProject.name}</h2>
             <ul className="listado-tareas">
-                {tasks === null || tasks.length === 0 ? (
+                {tasks.length === 0 ? (
                     <li className="tarea">
                         <p>No hay tareas</p>
                     </li>
@@ -20,7 +20,7 @@ const TasksListing = () => {
                     <TransitionGroup>
                         {tasks.map((task) => (
                             <CSSTransition
-                                key={task.id}
+                                key={task._id}
                                 classNames="tarea"
                                 timeout={200}
                             >

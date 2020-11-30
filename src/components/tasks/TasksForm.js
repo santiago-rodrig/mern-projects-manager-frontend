@@ -9,7 +9,7 @@ const TasksForm = () => {
     const taskInitialState = useMemo(
         () => ({
             name: '',
-            projectId: activeProject.id,
+            project: activeProject._id,
             state: false,
         }),
         [activeProject]
