@@ -40,8 +40,8 @@ const AuthContextProvider = ({ children }) => {
                     } = response
 
                     dispatch({ type: REGISTER_SUCCESS, payload: token })
-                    setUserData(null)
                     setTrySignup(false)
+                    setUserData(null)
                 } catch (error) {
                     dispatch({
                         type: REGISTER_ERROR,
