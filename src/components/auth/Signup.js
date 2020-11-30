@@ -1,23 +1,31 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { alertsContext } from '../../contexts/alerts'
+import { authContext } from '../../contexts/auth'
+
 const Signup = () => {
     const { alert, showAlert } = useContext(alertsContext)
+    const { registerUser } = useContext(authContext)
+
     const [user, setUser] = useState({
         email: '',
         password: '',
         name: '',
         passwordConfirmation: '',
     })
+
     const { email, password, name, passwordConfirmation } = user
+
     const handleChange = (e) => {
         setUser({
             ...user,
             [e.target.name]: e.target.value,
         })
     }
+
     const handleSubmit = (e) => {
         e.preventDefault()
+
         if (
             email.trim() === '' ||
             password.trim() === '' ||
@@ -25,16 +33,35 @@ const Signup = () => {
             passwordConfirmation.trim() === ''
         ) {
             showAlert('Todos los campos son obligatorios', 'alerta-error')
+
             return
         }
+
         if (password.length < 6) {
             showAlert(
                 'The password must have at least 6 characters',
                 'alerta-error'
             )
+
             return
         }
+
+        if (password !== passwordConfirmation) {
+            showAlert(
+                "The password and its confirmation don't match",
+                'alerta-error'
+            )
+
+            return
+        }
+
+        registerUser({
+            name,
+            password,
+            email,
+        })
     }
+
     return (
         <div className="form-usuario">
             {alert ? (
@@ -102,4 +129,5 @@ const Signup = () => {
         </div>
     )
 }
+
 export default Signup
