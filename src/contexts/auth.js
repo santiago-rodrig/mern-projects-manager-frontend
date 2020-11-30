@@ -1,4 +1,10 @@
-import React, { createContext, useReducer, useEffect, useState } from 'react'
+import React, {
+    createContext,
+    useReducer,
+    useEffect,
+    useState,
+    useCallback,
+} from 'react'
 import axiosClient from '../config/axios'
 import setAxiosClientTokenHeader from '../config/tokenHeader'
 
@@ -23,9 +29,10 @@ const AuthContextProvider = ({ children }) => {
             content: '',
             category: '',
         },
+        querying: true,
     })
 
-    const { token, authenticated, user, msg } = state
+    const { token, authenticated, user, msg, querying } = state
     const [trySignup, setTrySignup] = useState(false)
     const [trySignin, setTrySignin] = useState(false)
     const [tryGetToken, setTryGetToken] = useState(false)
@@ -122,19 +129,25 @@ const AuthContextProvider = ({ children }) => {
         }
     }, [tryGetToken, setTryGetToken, userData])
 
-    const registerUser = (userData) => {
-        setTrySignup(true)
-        setUserData(userData)
-    }
+    const registerUser = useCallback(
+        (userData) => {
+            setTrySignup(true)
+            setUserData(userData)
+        },
+        [setUserData, setTrySignup, dispatch]
+    )
 
-    const loginUser = () => {
+    const loginUser = useCallback(() => {
         setTrySignin(true)
-    }
+    }, [dispatch, setTrySignin])
 
-    const getToken = (email, password) => {
-        setUserData({ email, password })
-        setTryGetToken(true)
-    }
+    const getToken = useCallback(
+        (email, password) => {
+            setUserData({ email, password })
+            setTryGetToken(true)
+        },
+        [dispatch, setUserData, setTryGetToken]
+    )
 
     const logout = () => dispatch({ type: LOGOUT })
 
@@ -149,6 +162,7 @@ const AuthContextProvider = ({ children }) => {
                 loginUser,
                 getToken,
                 logout,
+                querying,
             }}
         >
             {children}

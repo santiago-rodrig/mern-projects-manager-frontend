@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { authContext } from '../../contexts/auth'
 
 const SecureRoute = ({ component: Component, ...props }) => {
-    const { loginUser, authenticated } = useContext(authContext)
+    const { loginUser, authenticated, querying } = useContext(authContext)
 
     useEffect(() => {
         loginUser()
@@ -11,7 +11,11 @@ const SecureRoute = ({ component: Component, ...props }) => {
 
     return (
         <Route {...props}>
-            {authenticated ? <Component {...props} /> : <Redirect to="/" />}
+            {authenticated || querying ? (
+                <Component {...props} />
+            ) : (
+                <Redirect to="/" />
+            )}
         </Route>
     )
 }

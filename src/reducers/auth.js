@@ -23,6 +23,7 @@ const authReducer = (state, action) => {
                     content: '',
                     category: '',
                 },
+                querying: false,
             }
         case TOKEN_SUCCESS:
             window.localStorage.setItem('token', payload)
@@ -34,6 +35,7 @@ const authReducer = (state, action) => {
                     content: '',
                     category: '',
                 },
+                querying: false,
             }
         case TOKEN_ERROR:
             window.localStorage.removeItem('token')
@@ -45,6 +47,7 @@ const authReducer = (state, action) => {
                     content: payload,
                     category: 'alerta-error',
                 },
+                querying: false,
             }
         case LOGIN_SUCCESS:
             return {
@@ -56,6 +59,7 @@ const authReducer = (state, action) => {
                     content: '',
                     category: '',
                 },
+                querying: false,
             }
         case LOGIN_ERROR:
             window.localStorage.removeItem('token')
@@ -69,6 +73,7 @@ const authReducer = (state, action) => {
                     content: payload,
                     category: 'alerta-error',
                 },
+                querying: false,
             }
         case SIGNUP_SUCCESS:
             window.localStorage.setItem('token', payload)
@@ -80,6 +85,7 @@ const authReducer = (state, action) => {
                     content: '',
                     category: '',
                 },
+                querying: false,
             }
         case SIGNUP_ERROR:
             window.localStorage.removeItem('token')
@@ -93,6 +99,7 @@ const authReducer = (state, action) => {
                     content: payload,
                     category: 'alerta-error',
                 },
+                querying: false,
             }
         default:
             return state

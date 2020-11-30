@@ -5,12 +5,10 @@ import TasksForm from '../tasks/TasksForm'
 import TasksListing from '../tasks/TasksListing'
 import { ProjectsContext } from '../../contexts/projects'
 import { TasksContext } from '../../contexts/tasks'
-import { authContext } from '../../contexts/auth'
 
 const Projects = () => {
     const { activeProject, removeProject } = useContext(ProjectsContext)
     const { deactivateTasks } = useContext(TasksContext)
-    const { loginUser } = useContext(authContext)
 
     const handleClick = () => {
         deactivateTasks(activeProject.id)
@@ -32,10 +30,6 @@ const Projects = () => {
             </div>
         </main>
     )
-
-    useEffect(() => {
-        loginUser()
-    }, [loginUser])
 
     return (
         <div className="contenedor-app">

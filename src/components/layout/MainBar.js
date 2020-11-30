@@ -2,11 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { authContext } from '../../contexts/auth'
 
 const MainBar = () => {
-    const { user, loginUser, logout } = useContext(authContext)
-
-    useEffect(() => {
-        loginUser()
-    }, [loginUser])
+    const { user, logout } = useContext(authContext)
 
     return (
         <header className="app-header">
