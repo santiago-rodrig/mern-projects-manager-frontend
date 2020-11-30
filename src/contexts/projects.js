@@ -36,6 +36,7 @@ const ProjectsProvider = ({ children }) => {
     const addProject = async (project) => {
         try {
             const response = await axiosClient.post('/api/projects', project)
+
             const {
                 data: { project: payload },
             } = response
