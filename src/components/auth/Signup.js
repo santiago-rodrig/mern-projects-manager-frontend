@@ -6,7 +6,9 @@ import { Redirect } from 'react-router-dom'
 
 const Signup = () => {
     const { alert, showAlert } = useContext(alertsContext)
-    const { registerUser, msg, authenticated } = useContext(authContext)
+    const { registerUser, msg, authenticated, cleanMessage } = useContext(
+        authContext
+    )
 
     const [user, setUser] = useState({
         email: '',
@@ -66,6 +68,7 @@ const Signup = () => {
     useEffect(() => {
         if (msg.content) {
             showAlert(msg.content, msg.category)
+            cleanMessage()
         }
     }, [msg, showAlert])
 

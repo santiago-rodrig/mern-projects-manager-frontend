@@ -2,10 +2,9 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { authContext } from '../../contexts/auth'
 import { alertsContext } from '../../contexts/alerts'
-import { Redirect } from 'react-router-dom'
 
 const Login = () => {
-    const { msg, getToken, authenticated } = useContext(authContext)
+    const { msg, getToken, cleanMessage } = useContext(authContext)
     const { showAlert, alert } = useContext(alertsContext)
 
     const [user, setUser] = useState({
@@ -37,12 +36,9 @@ const Login = () => {
     useEffect(() => {
         if (msg.content) {
             showAlert(msg.content, msg.category)
+            cleanMessage()
         }
     }, [msg, showAlert])
-
-    if (authenticated) {
-        return <Redirect to="/projects" />
-    }
 
     return (
         <div className="form-usuario">

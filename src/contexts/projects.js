@@ -1,5 +1,6 @@
 import { createContext, useReducer } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import axiosClient from '../config/axios'
+
 import projectsReducer, {
     ACTIVATE_PROJECT_FORM,
     DEACTIVATE_PROJECT_FORM,
@@ -32,10 +33,17 @@ const ProjectsProvider = ({ children }) => {
         dispatch({ type: SET_PROJECTS, payload: projects })
     }
 
-    const addProject = (project) => {
-        const payload = { ...project, id: uuidv4() }
+    const addProject = async (project) => {
+        try {
+            const response = await axiosClient.post('/api/projects', project)
+            const {
+                data: { project: payload },
+            } = response
 
-        dispatch({ type: ADD_PROJECT, payload })
+            dispatch({ type: ADD_PROJECT, payload })
+        } catch (error) {
+            console.log(error.response.data)
+        }
     }
 
     const activateProject = (projectId) => {

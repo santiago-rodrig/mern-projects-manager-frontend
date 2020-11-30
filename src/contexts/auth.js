@@ -16,6 +16,7 @@ import authReducer, {
     TOKEN_SUCCESS,
     TOKEN_ERROR,
     LOGOUT,
+    CLEAN_MESSAGE,
 } from '../reducers/auth'
 
 export const authContext = createContext()
@@ -134,20 +135,22 @@ const AuthContextProvider = ({ children }) => {
             setTrySignup(true)
             setUserData(userData)
         },
-        [setUserData, setTrySignup, dispatch]
+        [setUserData, setTrySignup]
     )
 
     const loginUser = useCallback(() => {
         setTrySignin(true)
-    }, [dispatch, setTrySignin])
+    }, [setTrySignin])
 
     const getToken = useCallback(
         (email, password) => {
             setUserData({ email, password })
             setTryGetToken(true)
         },
-        [dispatch, setUserData, setTryGetToken]
+        [setUserData, setTryGetToken]
     )
+
+    const cleanMessage = () => dispatch({ type: CLEAN_MESSAGE })
 
     const logout = () => dispatch({ type: LOGOUT })
 
@@ -163,6 +166,7 @@ const AuthContextProvider = ({ children }) => {
                 getToken,
                 logout,
                 querying,
+                cleanMessage,
             }}
         >
             {children}

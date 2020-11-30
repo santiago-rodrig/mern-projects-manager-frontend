@@ -6,11 +6,20 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const TOKEN_SUCCESS = 'TOKEN_SUCCESS'
 export const TOKEN_ERROR = 'TOKEN_ERROR'
+export const CLEAN_MESSAGE = 'CLEAN_MESSAGE'
 
 const authReducer = (state, action) => {
     const { type, payload } = action
 
     switch (type) {
+        case CLEAN_MESSAGE:
+            return {
+                ...state,
+                msg: {
+                    content: '',
+                    category: '',
+                },
+            }
         case LOGOUT:
             window.localStorage.removeItem('token')
 

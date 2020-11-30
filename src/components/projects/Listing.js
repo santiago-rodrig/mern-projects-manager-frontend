@@ -5,39 +5,11 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const Listing = () => {
     const { projects, setProjects } = useContext(ProjectsContext)
-
-    const [fetching, setFetching] = useState(true)
-
-    useEffect(() => {
-        const fetchProjects = new Promise((resolve) => {
-            setTimeout(
-                () =>
-                    resolve([
-                        { id: '1', name: 'Climb the Everest' },
-                        { id: '2', name: 'Visit Japan' },
-                        { id: '3', name: 'Paint the Car' },
-                    ]),
-                2000
-            )
-        })
-
-        const queryApi = async () => {
-            const payload = await fetchProjects
-
-            setProjects(payload)
-            setFetching(false)
-        }
-
-        if (fetching) {
-            queryApi()
-        }
-    }, [projects, setFetching, fetching, setProjects])
-
     let renderedJsx
 
-    if (projects.length === 0 && !fetching) {
+    if (projects.length === 0) {
         renderedJsx = <p>No tienes proyectos, intenta crear uno.</p>
-    } else if (projects.length === 0 && fetching) {
+    } else if (projects.length === 0) {
         renderedJsx = <p>Cargando proyectos...</p>
     } else {
         renderedJsx = (
