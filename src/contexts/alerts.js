@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react'
 import alertsReducer, { SHOW_ALERT, HIDE_ALERT } from '../reducers/alerts'
 export const alertsContext = createContext()
-export default AlertsContextProvider = ({ children }) => {
+const AlertsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(alertsReducer, {
         alert: null,
     })
@@ -17,3 +17,4 @@ export default AlertsContextProvider = ({ children }) => {
         </alertsContext.Provider>
     )
 }
+export default AlertsContextProvider
