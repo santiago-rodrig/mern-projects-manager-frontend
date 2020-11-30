@@ -6,26 +6,33 @@ import Projects from './components/projects/Projects'
 import ProjectsProvider from './contexts/projects'
 import TasksProvider from './contexts/tasks'
 import AlertsContextProvider from './contexts/alerts'
+import AuthContextProvider from './contexts/auth'
 
 function App() {
     return (
-        <AlertsContextProvider>
-            <ProjectsProvider>
-                <TasksProvider>
-                    <Router>
-                        <Switch>
-                            <Route exact path="/" component={Login} />
-                            <Route exact path="/signup" component={Signup} />
-                            <Route
-                                exact
-                                path="/projects"
-                                component={Projects}
-                            />
-                        </Switch>
-                    </Router>
-                </TasksProvider>
-            </ProjectsProvider>
-        </AlertsContextProvider>
+        <AuthContextProvider>
+            <AlertsContextProvider>
+                <ProjectsProvider>
+                    <TasksProvider>
+                        <Router>
+                            <Switch>
+                                <Route exact path="/" component={Login} />
+                                <Route
+                                    exact
+                                    path="/signup"
+                                    component={Signup}
+                                />
+                                <Route
+                                    exact
+                                    path="/projects"
+                                    component={Projects}
+                                />
+                            </Switch>
+                        </Router>
+                    </TasksProvider>
+                </ProjectsProvider>
+            </AlertsContextProvider>
+        </AuthContextProvider>
     )
 }
 
