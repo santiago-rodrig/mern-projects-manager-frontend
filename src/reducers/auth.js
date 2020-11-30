@@ -11,12 +11,35 @@ const authReducer = (state, action) => {
     const { type, payload } = action
 
     switch (type) {
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                authenticated: true,
+                user: payload,
+                token: window.localStorage.getItem('token'),
+                msg: {
+                    content: '',
+                    category: '',
+                },
+            }
+        case LOGIN_ERROR:
+            window.localStorage.removeItem('token')
+
+            return {
+                ...state,
+                authenticated: false,
+                user: null,
+                msg: {
+                    content: payload,
+                    category: 'alerta-error',
+                },
+            }
         case REGISTER_SUCCESS:
             window.localStorage.setItem('token', payload)
 
             return {
                 ...state,
-                authenticated: true,
+                token: payload,
                 msg: {
                     content: '',
                     category: '',
