@@ -1,4 +1,11 @@
-import React, { createContext, useReducer, useEffect, useState } from 'react'
+import React, {
+    createContext,
+    useReducer,
+    useEffect,
+    useState,
+    useContext,
+} from 'react'
+
 import authReducer, { REGISTER_SUCCESS, REGISTER_ERROR } from '../reducers/auth'
 import axiosClient from '../config/axios'
 
@@ -9,7 +16,10 @@ const AuthContextProvider = ({ children }) => {
         token: window.localStorage.getItem('token'),
         authenticated: false,
         user: null,
-        msg: '',
+        msg: {
+            content: '',
+            category: '',
+        },
     })
 
     const { token, authenticated, user, msg } = state
@@ -29,13 +39,15 @@ const AuthContextProvider = ({ children }) => {
                         data: { token },
                     } = response
 
-                    console.log(token)
-                    dispatch({ type: REGISTER_SUCCESS })
+                    dispatch({ type: REGISTER_SUCCESS, payload: token })
                     setUserData(null)
                     setTrySignup(false)
                 } catch (error) {
-                    console.log(error)
-                    dispatch({ type: REGISTER_ERROR, payload: error.message })
+                    dispatch({
+                        type: REGISTER_ERROR,
+                        payload: error.response.data.msg,
+                    })
+
                     setTrySignup(false)
                 }
             }

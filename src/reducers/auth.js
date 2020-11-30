@@ -12,18 +12,28 @@ const authReducer = (state, action) => {
 
     switch (type) {
         case REGISTER_SUCCESS:
+            window.localStorage.setItem('token', payload)
+
             return {
                 ...state,
                 authenticated: true,
-                msg: '',
+                msg: {
+                    content: '',
+                    category: '',
+                },
             }
         case REGISTER_ERROR:
+            window.localStorage.removeItem('token')
+
             return {
                 ...state,
                 token: null,
                 authenticated: false,
                 user: null,
-                msg: payload,
+                msg: {
+                    content: payload,
+                    category: 'alerta-error',
+                },
             }
         default:
             return state
