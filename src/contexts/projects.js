@@ -4,7 +4,6 @@ import axiosClient from '../config/axios'
 import projectsReducer, {
     ACTIVATE_PROJECT_FORM,
     DEACTIVATE_PROJECT_FORM,
-    SET_PROJECTS,
     ADD_PROJECT,
     ACTIVATE_PROJECT,
     REMOVE_PROJECT,
@@ -43,10 +42,6 @@ const ProjectsProvider = ({ children }) => {
         dispatch({ type: DEACTIVATE_PROJECT_FORM })
     }
 
-    const setProjects = (projects) => {
-        dispatch({ type: SET_PROJECTS, payload: projects })
-    }
-
     const addProject = async (project) => {
         try {
             const response = await axiosClient.post('/api/projects', project)
@@ -78,7 +73,6 @@ const ProjectsProvider = ({ children }) => {
                 newProject,
                 activateProjectForm,
                 deactivateProjectForm,
-                setProjects,
                 projects,
                 addProject,
                 getProjects,

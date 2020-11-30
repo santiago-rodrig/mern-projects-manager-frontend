@@ -1,6 +1,5 @@
 export const ACTIVATE_PROJECT_FORM = 'ACTIVATE_PROJECT_FORM'
 export const DEACTIVATE_PROJECT_FORM = 'DEACTIVATE_PROJECT_FORM'
-export const SET_PROJECTS = 'SET_PROJECTS'
 export const ADD_PROJECT = 'ADD_PROJECT'
 export const ACTIVATE_PROJECT = 'ACTIVATE_PROJECT'
 export const REMOVE_PROJECT = 'REMOVE_PROJECT'
@@ -21,11 +20,6 @@ const projectsReducer = (state, action) => {
                 ...state,
                 newProject: false,
             }
-        case SET_PROJECTS:
-            return {
-                ...state,
-                projects: payload,
-            }
         case POPULATE_PROJECTS:
             return {
                 ...state,
@@ -39,12 +33,12 @@ const projectsReducer = (state, action) => {
         case ACTIVATE_PROJECT:
             return {
                 ...state,
-                activeProject: projects.find((p) => p.id === payload),
+                activeProject: projects.find((p) => p._id === payload),
             }
         case REMOVE_PROJECT:
             return {
                 ...state,
-                projects: projects.filter((p) => p.id !== payload),
+                projects: projects.filter((p) => p._id !== payload),
                 activeProject: null,
             }
         default:

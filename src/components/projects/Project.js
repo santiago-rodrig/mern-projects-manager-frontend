@@ -7,8 +7,8 @@ const Project = ({ project }) => {
     const { activateTasks } = useContext(TasksContext)
 
     const handleClick = () => {
-        activateProject(project.id)
-        activateTasks(project.id)
+        activateProject(project._id)
+        activateTasks(project._id)
     }
 
     return (
