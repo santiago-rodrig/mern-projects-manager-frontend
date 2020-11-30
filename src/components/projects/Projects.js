@@ -1,14 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Sidebar from '../layout/Sidebar'
 import MainBar from '../layout/MainBar'
 import TasksForm from '../tasks/TasksForm'
 import TasksListing from '../tasks/TasksListing'
 import { ProjectsContext } from '../../contexts/projects'
 import { TasksContext } from '../../contexts/tasks'
+import { authContext } from '../../contexts/auth'
 
 const Projects = () => {
     const { activeProject, removeProject } = useContext(ProjectsContext)
     const { deactivateTasks } = useContext(TasksContext)
+    const { loginUser } = useContext(authContext)
 
     const handleClick = () => {
         deactivateTasks(activeProject.id)
@@ -30,6 +32,10 @@ const Projects = () => {
             </div>
         </main>
     )
+
+    useEffect(() => {
+        loginUser()
+    }, [])
 
     return (
         <div className="contenedor-app">
