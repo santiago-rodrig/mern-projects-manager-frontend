@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from 'react'
 import Task from './Task'
-import { ProjectsContext } from '../../context/projects/context'
-import { TasksContext } from '../../context/tasks/context'
+import { ProjectsContext } from '../../contexts/projects'
+import { TasksContext } from '../../contexts/tasks'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const TasksListing = () => {

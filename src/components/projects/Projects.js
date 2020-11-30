@@ -3,8 +3,8 @@ import Sidebar from '../layout/Sidebar'
 import MainBar from '../layout/MainBar'
 import TasksForm from '../tasks/TasksForm'
 import TasksListing from '../tasks/TasksListing'
-import { ProjectsContext } from '../../context/projects/context'
-import { TasksContext } from '../../context/tasks/context'
+import { ProjectsContext } from '../../contexts/projects'
+import { TasksContext } from '../../contexts/tasks'
 
 const Projects = () => {
     const { activeProject, removeProject } = useContext(ProjectsContext)

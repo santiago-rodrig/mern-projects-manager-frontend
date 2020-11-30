@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Project from './Project'
-import { ProjectsContext } from '../../context/projects/context'
+import { ProjectsContext } from '../../contexts/projects'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const Listing = () => {

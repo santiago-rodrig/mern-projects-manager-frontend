@@ -7,7 +7,7 @@ import projectsReducer, {
     ADD_PROJECT,
     ACTIVATE_PROJECT,
     REMOVE_PROJECT,
-} from './reducer'
+} from '../reducers/projects'
 
 export const ProjectsContext = createContext()
 

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react'
-import { ProjectsContext } from '../../context/projects/context'
+import { ProjectsContext } from '../../contexts/projects'
 
 const ProjectForm = () => {
     const {

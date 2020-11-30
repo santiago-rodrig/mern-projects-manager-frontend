@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Projects from './components/projects/Projects'
-import ProjectsProvider from './context/projects/context'
-import TasksProvider from './context/tasks/context'
+import ProjectsProvider from './contexts/projects'
+import TasksProvider from './contexts/tasks'
 
 function App() {
     return (

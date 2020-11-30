@@ -1,21 +1,19 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { TasksContext } from '../../context/tasks/context'
-import { ProjectsContext } from '../../context/projects/context'
+import React, { useContext, useState, useEffect, useMemo } from 'react'
+import { TasksContext } from '../../contexts/tasks'
+import { ProjectsContext } from '../../contexts/projects'
 
 const TasksForm = () => {
     const { activeProject } = useContext(ProjectsContext)
-    const {
-        addTask,
-        taskBeingEdited,
-        setTaskBeingEdited,
-        updateTask,
-    } = useContext(TasksContext)
+    const { addTask, taskBeingEdited, updateTask } = useContext(TasksContext)
 
-    const taskInitialState = {
-        name: '',
-        projectId: activeProject.id,
-        state: false,
-    }
+    const taskInitialState = useMemo(
+        () => ({
+            name: '',
+            projectId: activeProject.id,
+            state: false,
+        }),
+        [activeProject]
+    )
 
     const [task, setTask] = useState(taskInitialState)
 
@@ -25,7 +23,7 @@ const TasksForm = () => {
         } else {
             setTask(taskInitialState)
         }
-    }, [taskBeingEdited])
+    }, [taskBeingEdited, taskInitialState])
 
     const [invalidTask, setInvalidTask] = useState(false)
 

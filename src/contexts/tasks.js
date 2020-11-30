@@ -9,7 +9,7 @@ import tasksReducer, {
     REMOVE_TASK,
     TOGGLE_TASK_STATE,
     SET_TASK_BEING_EDITED,
-} from './reducer'
+} from '../reducers/tasks'
 
 const TasksContext = createContext()
 
