@@ -1,29 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-
+import { alertsContext } from '../../contexts/alerts'
 const Signup = () => {
+    const { alert, showAlert } = useContext(alertsContext)
     const [user, setUser] = useState({
         email: '',
         password: '',
         name: '',
         passwordConfirmation: '',
     })
-
     const { email, password, name, passwordConfirmation } = user
-
     const handleChange = (e) => {
         setUser({
             ...user,
             [e.target.name]: e.target.value,
         })
     }
-
     const handleSubmit = (e) => {
         e.preventDefault()
+        if (
+            email.trim() === '' ||
+            password.trim() === '' ||
+            name.trim() === '' ||
+            passwordConfirmation.trim() === ''
+        ) {
+            showAlert('Todos los campos son obligatorios', 'alerta-error')
+        }
     }
-
     return (
         <div className="form-usuario">
+            {alert ? (
+                <div className={`alerta ${alert.category}`}>{alert.msg}</div>
+            ) : null}
             <div className="contenedor-form sombra-dark">
                 <h1>Obtener una Cuenta</h1>
                 <form onSubmit={handleSubmit}>
@@ -86,5 +94,4 @@ const Signup = () => {
         </div>
     )
 }
-
 export default Signup
