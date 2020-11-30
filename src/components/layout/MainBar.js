@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { authContext } from '../../contexts/auth'
 
 const MainBar = () => {
-    const { user, loginUser } = useContext(authContext)
+    const { user, loginUser, logout } = useContext(authContext)
 
     useEffect(() => {
         loginUser()
@@ -17,7 +17,13 @@ const MainBar = () => {
             ) : null}
 
             <nav className="nav-principal">
-                <a href="#!">Cerrar Sesión</a>
+                <button
+                    className="btn btn-blank cerrar-sesion"
+                    type="button"
+                    onClick={() => logout()}
+                >
+                    Logout
+                </button>
             </nav>
         </header>
     )

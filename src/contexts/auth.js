@@ -9,6 +9,7 @@ import authReducer, {
     LOGIN_ERROR,
     TOKEN_SUCCESS,
     TOKEN_ERROR,
+    LOGOUT,
 } from '../reducers/auth'
 
 export const authContext = createContext()
@@ -135,6 +136,8 @@ const AuthContextProvider = ({ children }) => {
         setTryGetToken(true)
     }
 
+    const logout = () => dispatch({ type: LOGOUT })
+
     return (
         <authContext.Provider
             value={{
@@ -145,6 +148,7 @@ const AuthContextProvider = ({ children }) => {
                 registerUser,
                 loginUser,
                 getToken,
+                logout,
             }}
         >
             {children}

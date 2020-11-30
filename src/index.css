@@ -368,3 +368,13 @@ aside {
 .mb-4 {
     margin-bottom: 2rem;
 }
+
+.cerrar-sesion {
+    color: var(--blanco);
+    margin-top: 0.5rem;
+}
+
+.cerrar-session:active {
+    border: none;
+    outline: none;
+}
