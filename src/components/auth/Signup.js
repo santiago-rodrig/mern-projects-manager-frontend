@@ -2,10 +2,11 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { alertsContext } from '../../contexts/alerts'
 import { authContext } from '../../contexts/auth'
+import { Redirect } from 'react-router-dom'
 
 const Signup = () => {
     const { alert, showAlert } = useContext(alertsContext)
-    const { registerUser, msg } = useContext(authContext)
+    const { registerUser, msg, authenticated } = useContext(authContext)
 
     const [user, setUser] = useState({
         email: '',
@@ -67,6 +68,10 @@ const Signup = () => {
             showAlert(msg.content, msg.category)
         }
     }, [msg])
+
+    if (authenticated) {
+        return <Redirect to="/projects" />
+    }
 
     return (
         <div className="form-usuario">
