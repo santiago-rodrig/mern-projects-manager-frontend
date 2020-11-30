@@ -19,7 +19,7 @@ const Listing = () => {
                         <CSSTransition
                             timeout={200}
                             classNames="proyecto"
-                            key={project.id}
+                            key={project._id}
                         >
                             <Project project={project} />
                         </CSSTransition>

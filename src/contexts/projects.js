@@ -8,6 +8,7 @@ import projectsReducer, {
     ADD_PROJECT,
     ACTIVATE_PROJECT,
     REMOVE_PROJECT,
+    POPULATE_PROJECTS,
 } from '../reducers/projects'
 
 export const ProjectsContext = createContext()
@@ -20,6 +21,19 @@ const ProjectsProvider = ({ children }) => {
     })
 
     const { newProject, projects, activeProject } = state
+
+    const getProjects = async () => {
+        try {
+            const response = await axiosClient.get('/api/projects')
+            const {
+                data: { projects: payload },
+            } = response
+
+            dispatch({ type: POPULATE_PROJECTS, payload })
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
 
     const activateProjectForm = () => {
         dispatch({ type: ACTIVATE_PROJECT_FORM })
@@ -67,6 +81,7 @@ const ProjectsProvider = ({ children }) => {
                 setProjects,
                 projects,
                 addProject,
+                getProjects,
             }}
         >
             {children}

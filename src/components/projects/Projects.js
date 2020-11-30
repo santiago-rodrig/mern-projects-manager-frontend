@@ -5,10 +5,21 @@ import TasksForm from '../tasks/TasksForm'
 import TasksListing from '../tasks/TasksListing'
 import { ProjectsContext } from '../../contexts/projects'
 import { TasksContext } from '../../contexts/tasks'
+import { authContext } from '../../contexts/auth'
 
 const Projects = () => {
-    const { activeProject, removeProject } = useContext(ProjectsContext)
+    const { activeProject, removeProject, getProjects } = useContext(
+        ProjectsContext
+    )
+
     const { deactivateTasks } = useContext(TasksContext)
+    const { authenticated } = useContext(authContext)
+
+    useEffect(() => {
+        if (authenticated) {
+            getProjects()
+        }
+    }, [getProjects, authenticated])
 
     const handleClick = () => {
         deactivateTasks(activeProject.id)

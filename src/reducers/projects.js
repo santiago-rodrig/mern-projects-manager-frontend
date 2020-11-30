@@ -4,6 +4,7 @@ export const SET_PROJECTS = 'SET_PROJECTS'
 export const ADD_PROJECT = 'ADD_PROJECT'
 export const ACTIVATE_PROJECT = 'ACTIVATE_PROJECT'
 export const REMOVE_PROJECT = 'REMOVE_PROJECT'
+export const POPULATE_PROJECTS = 'POPULATE_PROJECTS'
 
 const projectsReducer = (state, action) => {
     const { type, payload } = action
@@ -21,6 +22,11 @@ const projectsReducer = (state, action) => {
                 newProject: false,
             }
         case SET_PROJECTS:
+            return {
+                ...state,
+                projects: payload,
+            }
+        case POPULATE_PROJECTS:
             return {
                 ...state,
                 projects: payload,
