@@ -7,6 +7,7 @@ import ProjectsProvider from './contexts/projects'
 import TasksProvider from './contexts/tasks'
 import AlertsContextProvider from './contexts/alerts'
 import AuthContextProvider from './contexts/auth'
+import SecureRoute from './components/auth/SecureRoute'
 
 function App() {
     return (
@@ -22,7 +23,7 @@ function App() {
                                     path="/signup"
                                     component={Signup}
                                 />
-                                <Route
+                                <SecureRoute
                                     exact
                                     path="/projects"
                                     component={Projects}

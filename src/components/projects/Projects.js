@@ -35,7 +35,7 @@ const Projects = () => {
 
     useEffect(() => {
         loginUser()
-    }, [])
+    }, [loginUser])
 
     return (
         <div className="contenedor-app">

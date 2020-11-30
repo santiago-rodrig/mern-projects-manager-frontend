@@ -6,7 +6,7 @@ const MainBar = () => {
 
     useEffect(() => {
         loginUser()
-    }, [])
+    }, [loginUser])
 
     return (
         <header className="app-header">

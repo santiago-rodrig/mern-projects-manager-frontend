@@ -38,7 +38,7 @@ const Login = () => {
         if (msg.content) {
             showAlert(msg.content, msg.category)
         }
-    }, [msg])
+    }, [msg, showAlert])
 
     if (authenticated) {
         return <Redirect to="/projects" />

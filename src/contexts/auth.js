@@ -89,7 +89,7 @@ const AuthContextProvider = ({ children }) => {
 
             getUserFromApi()
         }
-    }, [trySignin, setTrySignin])
+    }, [trySignin, setTrySignin, token])
 
     useEffect(() => {
         if (tryGetToken) {
@@ -120,7 +120,7 @@ const AuthContextProvider = ({ children }) => {
 
             getTokenFromApi()
         }
-    }, [tryGetToken, setTryGetToken])
+    }, [tryGetToken, setTryGetToken, userData])
 
     const registerUser = (userData) => {
         setTrySignup(true)
