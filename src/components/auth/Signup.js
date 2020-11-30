@@ -27,6 +27,13 @@ const Signup = () => {
             showAlert('Todos los campos son obligatorios', 'alerta-error')
             return
         }
+        if (password.length < 6) {
+            showAlert(
+                'The password must have at least 6 characters',
+                'alerta-error'
+            )
+            return
+        }
     }
     return (
         <div className="form-usuario">

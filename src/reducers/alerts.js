@@ -1,6 +1,6 @@
 export const SHOW_ALERT = 'SHOW_ALERT'
 export const HIDE_ALERT = 'HIDE_ALERT'
-export default (state, action) => {
+const alertsReducer = (state, action) => {
     const { type, payload } = action
     switch (type) {
         case SHOW_ALERT:
@@ -17,3 +17,4 @@ export default (state, action) => {
             return state
     }
 }
+export default alertsReducer
