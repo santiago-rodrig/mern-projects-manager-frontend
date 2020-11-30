@@ -1,13 +1,14 @@
 import React, { createContext, useReducer, useEffect, useState } from 'react'
 import axiosClient from '../config/axios'
 import setAxiosClientTokenHeader from '../config/tokenHeader'
-import setAxiosTokenHeader from '../config/tokenHeader'
 
 import authReducer, {
-    REGISTER_SUCCESS,
-    REGISTER_ERROR,
+    SIGNUP_SUCCESS,
+    SIGNUP_ERROR,
     LOGIN_SUCCESS,
     LOGIN_ERROR,
+    TOKEN_SUCCESS,
+    TOKEN_ERROR,
 } from '../reducers/auth'
 
 export const authContext = createContext()
@@ -26,6 +27,7 @@ const AuthContextProvider = ({ children }) => {
     const { token, authenticated, user, msg } = state
     const [trySignup, setTrySignup] = useState(false)
     const [trySignin, setTrySignin] = useState(false)
+    const [tryGetToken, setTryGetToken] = useState(false)
     const [userData, setUserData] = useState()
 
     useEffect(() => {
@@ -42,12 +44,12 @@ const AuthContextProvider = ({ children }) => {
                     } = response
 
                     setTrySignup(false)
-                    dispatch({ type: REGISTER_SUCCESS, payload })
+                    dispatch({ type: SIGNUP_SUCCESS, payload })
                     setUserData(null)
                     setTrySignin(true)
                 } catch (error) {
                     dispatch({
-                        type: REGISTER_ERROR,
+                        type: SIGNUP_ERROR,
                         payload: error.response.data.msg,
                     })
 
@@ -88,6 +90,37 @@ const AuthContextProvider = ({ children }) => {
         }
     }, [trySignin, setTrySignin])
 
+    useEffect(() => {
+        if (tryGetToken) {
+            const getTokenFromApi = async () => {
+                try {
+                    const response = await axiosClient.post(
+                        '/api/auth',
+                        userData
+                    )
+
+                    setTryGetToken(false)
+
+                    const {
+                        data: { token: payload },
+                    } = response
+
+                    dispatch({ type: TOKEN_SUCCESS, payload })
+                    setTrySignin(true)
+                } catch (error) {
+                    setTryGetToken(false)
+
+                    dispatch({
+                        type: TOKEN_ERROR,
+                        payload: error.response.data.msg,
+                    })
+                }
+            }
+
+            getTokenFromApi()
+        }
+    }, [tryGetToken, setTryGetToken])
+
     const registerUser = (userData) => {
         setTrySignup(true)
         setUserData(userData)
@@ -95,6 +128,11 @@ const AuthContextProvider = ({ children }) => {
 
     const loginUser = () => {
         setTrySignin(true)
+    }
+
+    const getToken = (email, password) => {
+        setUserData({ email, password })
+        setTryGetToken(true)
     }
 
     return (
@@ -106,6 +144,7 @@ const AuthContextProvider = ({ children }) => {
                 msg,
                 registerUser,
                 loginUser,
+                getToken,
             }}
         >
             {children}
