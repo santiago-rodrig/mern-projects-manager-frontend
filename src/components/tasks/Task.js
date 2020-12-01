@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import { TasksContext } from '../../contexts/tasks'
 
 const Task = ({ task }) => {
-    const { removeTask, toggleTaskState, setTaskBeingEdited } = useContext(
+    const { removeTask, updateTask, setTaskBeingEdited } = useContext(
         TasksContext
     )
 
     const handleRemove = () => {
-        removeTask(task.id)
+        removeTask(task._id)
     }
 
     const handleToggle = () => {
-        toggleTaskState(task.id)
+        updateTask({ ...task, completed: !task.completed })
     }
 
     const handleEdit = () => {
@@ -22,7 +22,7 @@ const Task = ({ task }) => {
         <li className="tarea sombra">
             <p>{task.name}</p>
             <div className="estado">
-                {task.state ? (
+                {task.completed ? (
                     <button
                         type="button"
                         className="completo"

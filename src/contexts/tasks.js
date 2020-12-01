@@ -7,7 +7,6 @@ import tasksReducer, {
     DEACTIVATE_TASKS,
     ADD_TASK,
     REMOVE_TASK,
-    TOGGLE_TASK_STATE,
     SET_TASK_BEING_EDITED,
 } from '../reducers/tasks'
 
@@ -16,11 +15,10 @@ const TasksContext = createContext()
 const TasksProvider = ({ children }) => {
     const [state, dispatch] = useReducer(tasksReducer, {
         tasks: [],
-        activeTasks: null,
         taskBeingEdited: null,
     })
 
-    const { tasks, activeTasks, taskBeingEdited } = state
+    const { tasks, taskBeingEdited } = state
 
     const activateTasks = async (projectId) => {
         try {
@@ -56,29 +54,47 @@ const TasksProvider = ({ children }) => {
         }
     }
 
-    const removeTask = (taskId) => {
-        dispatch({ type: REMOVE_TASK, payload: taskId })
-    }
+    const removeTask = async (taskId) => {
+        try {
+            await axiosClient.delete(`api/tasks/${taskId}`)
 
-    const toggleTaskState = (taskId) => {
-        dispatch({ type: TOGGLE_TASK_STATE, payload: taskId })
+            dispatch({ type: REMOVE_TASK, payload: taskId })
+        } catch (error) {
+            console.log(error.response.data)
+        }
     }
 
     const setTaskBeingEdited = (task) => {
         dispatch({ type: SET_TASK_BEING_EDITED, payload: task })
     }
 
-    const updateTask = (task) => {
-        dispatch({ type: UPDATE_TASK, payload: task })
+    const updateTask = async (task) => {
+        const cleanTask = {
+            name: task.name,
+            completed: task.completed,
+        }
+
+        try {
+            const response = await axiosClient.put(
+                `/api/tasks/${task._id}`,
+                cleanTask
+            )
+
+            const {
+                data: { task: payload },
+            } = response
+
+            dispatch({ type: UPDATE_TASK, payload })
+        } catch (error) {
+            console.log(error.response.data)
+        }
     }
 
     return (
         <TasksContext.Provider
             value={{
                 setTaskBeingEdited,
-                toggleTaskState,
                 tasks,
-                activeTasks,
                 activateTasks,
                 deactivateTasks,
                 addTask,

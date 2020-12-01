@@ -6,7 +6,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const TasksListing = () => {
     const { activeProject } = useContext(ProjectsContext)
-    const { activeTasks: tasks } = useContext(TasksContext)
+    const { tasks } = useContext(TasksContext)
 
     return (
         <Fragment>
