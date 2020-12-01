@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { authContext } from '../../contexts/auth'
 

@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import Project from './Project'
 import { ProjectsContext } from '../../contexts/projects'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const Listing = () => {
-    const { projects, setProjects } = useContext(ProjectsContext)
+    const { projects } = useContext(ProjectsContext)
     let renderedJsx
 
     if (projects.length === 0) {

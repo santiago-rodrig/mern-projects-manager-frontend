@@ -7,7 +7,6 @@ import { ProjectsContext } from '../../contexts/projects'
 import { TasksContext } from '../../contexts/tasks'
 import { authContext } from '../../contexts/auth'
 import { alertsContext } from '../../contexts/alerts'
-import { Redirect } from 'react-router-dom'
 
 const Projects = () => {
     const {
@@ -18,7 +17,11 @@ const Projects = () => {
         clearMessage,
     } = useContext(ProjectsContext)
 
-    const { deactivateTasks } = useContext(TasksContext)
+    const {
+        deactivateTasks,
+        msg: tasksMessage,
+        clearMessage: tasksClearMessage,
+    } = useContext(TasksContext)
     const { authenticated } = useContext(authContext)
     const { alert, showAlert } = useContext(alertsContext)
 
@@ -27,7 +30,14 @@ const Projects = () => {
             showAlert(msg.content, msg.category)
             clearMessage()
         }
-    }, [msg, clearMessage])
+    }, [msg, clearMessage, showAlert])
+
+    useEffect(() => {
+        if (tasksMessage.content) {
+            showAlert(tasksMessage.content, tasksMessage.category)
+            tasksClearMessage()
+        }
+    }, [tasksMessage, tasksClearMessage, showAlert])
 
     useEffect(() => {
         if (authenticated) {

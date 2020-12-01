@@ -8,6 +8,8 @@ import tasksReducer, {
     ADD_TASK,
     REMOVE_TASK,
     SET_TASK_BEING_EDITED,
+    ERROR_MESSAGE,
+    CLEAR_MESSAGE,
 } from '../reducers/tasks'
 
 const TasksContext = createContext()
@@ -16,9 +18,13 @@ const TasksProvider = ({ children }) => {
     const [state, dispatch] = useReducer(tasksReducer, {
         tasks: [],
         taskBeingEdited: null,
+        msg: {
+            content: '',
+            category: '',
+        },
     })
 
-    const { tasks, taskBeingEdited } = state
+    const { tasks, taskBeingEdited, msg } = state
 
     const activateTasks = async (projectId) => {
         try {
@@ -32,9 +38,11 @@ const TasksProvider = ({ children }) => {
 
             dispatch({ type: ACTIVATE_TASKS, payload })
         } catch (error) {
-            console.log(error.response.data)
+            dispatch({ type: ERROR_MESSAGE, payload: error.response.data.msg })
         }
     }
+
+    const clearMessage = () => dispatch({ type: CLEAR_MESSAGE })
 
     const deactivateTasks = (projectId) => {
         dispatch({ type: DEACTIVATE_TASKS, payload: projectId })
@@ -50,7 +58,7 @@ const TasksProvider = ({ children }) => {
 
             dispatch({ type: ADD_TASK, payload })
         } catch (error) {
-            console.log(error.resonse.data)
+            dispatch({ type: ERROR_MESSAGE, payload: error.response.data.msg })
         }
     }
 
@@ -60,7 +68,7 @@ const TasksProvider = ({ children }) => {
 
             dispatch({ type: REMOVE_TASK, payload: taskId })
         } catch (error) {
-            console.log(error.response.data)
+            dispatch({ type: ERROR_MESSAGE, payload: error.response.data.msg })
         }
     }
 
@@ -86,7 +94,7 @@ const TasksProvider = ({ children }) => {
 
             dispatch({ type: UPDATE_TASK, payload })
         } catch (error) {
-            console.log(error.response.data)
+            dispatch({ type: ERROR_MESSAGE, payload: error.response.data.msg })
         }
     }
 
@@ -101,6 +109,8 @@ const TasksProvider = ({ children }) => {
                 removeTask,
                 taskBeingEdited,
                 updateTask,
+                clearMessage,
+                msg,
             }}
         >
             {children}

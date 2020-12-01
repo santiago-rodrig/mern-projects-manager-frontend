@@ -4,6 +4,8 @@ const DEACTIVATE_TASKS = 'DEACTIVATE_TASKS'
 const ADD_TASK = 'ADD_TASK'
 const REMOVE_TASK = 'REMOVE_TASK'
 const SET_TASK_BEING_EDITED = 'SET_TASK_BEING_EDITED'
+const ERROR_MESSAGE = 'ERROR_MESSAGE'
+const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
 
 const tasksReducer = (state, action) => {
     const { type, payload } = action
@@ -45,14 +47,26 @@ const tasksReducer = (state, action) => {
                 return task
             }
 
-            console.log('payload:', payload)
-            console.log('tasks:', tasks)
-            console.log('UPDATE_TASK:', tasks.map(mapper))
-
             return {
                 ...state,
                 tasks: tasks.map(mapper),
                 taskBeingEdited: null,
+            }
+        case ERROR_MESSAGE:
+            return {
+                ...state,
+                msg: {
+                    content: payload,
+                    category: 'alerta-error',
+                },
+            }
+        case CLEAR_MESSAGE:
+            return {
+                ...state,
+                msg: {
+                    content: '',
+                    category: '',
+                },
             }
         default:
             return state
@@ -66,6 +80,8 @@ export {
     REMOVE_TASK,
     SET_TASK_BEING_EDITED,
     UPDATE_TASK,
+    ERROR_MESSAGE,
+    CLEAR_MESSAGE,
 }
 
 export default tasksReducer

@@ -70,7 +70,7 @@ const Signup = () => {
             showAlert(msg.content, msg.category)
             cleanMessage()
         }
-    }, [msg, showAlert])
+    }, [msg, showAlert, cleanMessage])
 
     if (authenticated) {
         return <Redirect to="/projects" />
