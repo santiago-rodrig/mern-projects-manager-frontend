@@ -22,8 +22,20 @@ const TasksProvider = ({ children }) => {
 
     const { tasks, activeTasks, taskBeingEdited } = state
 
-    const activateTasks = (projectId) => {
-        dispatch({ type: ACTIVATE_TASKS, payload: projectId })
+    const activateTasks = async (projectId) => {
+        try {
+            const response = await axiosClient.get('/api/tasks/', {
+                params: { project: projectId },
+            })
+
+            const {
+                data: { tasks: payload },
+            } = response
+
+            dispatch({ type: ACTIVATE_TASKS, payload })
+        } catch (error) {
+            console.log(error.response.data)
+        }
     }
 
     const deactivateTasks = (projectId) => {

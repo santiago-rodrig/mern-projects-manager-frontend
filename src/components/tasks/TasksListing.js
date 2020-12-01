@@ -12,7 +12,7 @@ const TasksListing = () => {
         <Fragment>
             <h2>Proyecto: {activeProject.name}</h2>
             <ul className="listado-tareas">
-                {tasks.length === 0 ? (
+                {!tasks || tasks.length === 0 ? (
                     <li className="tarea">
                         <p>No hay tareas</p>
                     </li>

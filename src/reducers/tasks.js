@@ -15,7 +15,7 @@ const tasksReducer = (state, action) => {
         case ACTIVATE_TASKS:
             return {
                 ...state,
-                activeTasks: tasks.filter((task) => task.project === payload),
+                activeTasks: payload,
             }
         case DEACTIVATE_TASKS:
             return {
